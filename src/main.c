@@ -48,6 +48,38 @@ void serve_client() {
   print_client(served_client);
 }
 
+void open_or_close_checkout() {
+  int checkout_id;
+  printf("Digite o id do caixa: \n");
+  scanf("%d", &checkout_id);
+
+  int option;
+  printf("Abrir (1) ou fechar (0) o caixa? \n");
+  scanf("%d", &option);
+
+  Checkout* next_checkout = NULL;
+
+  for (int i = 0; i < CHECKOUT_COUNT; i++) {
+    if (checkouts[i].open && i != checkout_id) {
+      next_checkout = &checkouts[i];
+      break;
+    }
+  }
+
+  if (next_checkout == NULL && checkouts[checkout_id].clients->size > 0) {
+    printf(
+        "Você não pode fechar este caixa pois ele tem clientes e não há outro "
+        "caixa aberto!\n");
+    return;
+  }
+
+  if (option) {
+    open_checkout(&checkouts[checkout_id]);
+  } else {
+    close_checkout(&checkouts[checkout_id], next_checkout);
+  }
+}
+
 void print_checkouts() {
   for (int i = 0; i < CHECKOUT_COUNT; i++) {
     printf("Caixa %d: ", checkouts[i].id);
@@ -107,7 +139,7 @@ int main() {
         serve_client();
         break;
       case 3:
-        printf("Abrir ou fechar um caixa\n");
+        open_or_close_checkout();
         break;
       case 4:
         print_checkouts();

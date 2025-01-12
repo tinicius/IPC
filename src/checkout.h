@@ -9,4 +9,7 @@ typedef struct Checkout {
   List* clients;
 } Checkout;
 
+void open_checkout(Checkout* checkout);
+void close_checkout(Checkout* checkout, Checkout* next_checkout);
+
 #endif

@@ -15,19 +15,30 @@ void push(List* list, Client* client) {
   ListNode* prev = NULL;
   ListNode* current = list->head;
 
-  while (client->priority >= current->client->priority &&
-         current->next != NULL) {
+  while (client->priority >= current->client->priority && current != NULL) {
     prev = current;
+
+    if (current->next == NULL) {
+      current = NULL;
+      break;
+    }
+
     current = current->next;
   }
 
   if (prev == NULL) {
-    node->next = list->head;
-    list->head = node;
-  } else {
-    prev->next = node;
-    node->next = current;
+    if (client->priority < current->client->priority) {
+      node->next = current;
+      list->head = node;
+      return;
+    }
+
+    current->next = node;
+    return;
   }
+
+  prev->next = node;
+  node->next = current;
 }
 
 Client* pop(List* list) {
