@@ -58,9 +58,9 @@ void print_list(List* list) {
   ListNode* current = list->head;
 
   while (current != NULL) {
-    printf("%s (%d) ", current->client->name, current->client->priority);
+    print_client(current->client);
+    printf("\n");
     current = current->next;
   }
 
-  printf("\n");
 }

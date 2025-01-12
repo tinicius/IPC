@@ -91,7 +91,6 @@ void print_checkouts() {
     }
 
     if (checkouts[i].clients->size > 0) {
-      printf("Clientes: ");
       print_list(checkouts[i].clients);
     }
   }
