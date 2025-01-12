@@ -96,6 +96,17 @@ void print_checkouts() {
   }
 }
 
+void print_checkout_status() {
+  for (int i = 0; i < CHECKOUT_COUNT; i++) {
+    if (checkouts[i].open) {
+      printf("Caixa %d (Aberto): %d\n", checkouts[i].id,
+             checkouts[i].clients->size);
+    } else {
+      printf("Caixa %d (Fechado)\n", checkouts[i].id);
+    }
+  }
+}
+
 int main() {
   int op;
 
@@ -144,7 +155,7 @@ int main() {
         print_checkouts();
         break;
       case 5:
-        printf("Imprimir o status dos caixas\n");
+        print_checkout_status();
         break;
       default:
         printf("Opção inválida\n");
