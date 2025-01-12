@@ -14,4 +14,6 @@ typedef struct Client {
 
 Client* input_client();
 
+void print_client(Client* client);
+
 #endif

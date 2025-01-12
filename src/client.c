@@ -24,3 +24,10 @@ Client* input_client() {
 
   return client;
 }
+
+void print_client(Client* client) {
+  printf("Nome: %s\n", client->name);
+  printf("CPF: %ld\n", client->cpf);
+  printf("Prioridade: %d\n", client->priority);
+  printf("Itens: %d\n", client->items);
+}

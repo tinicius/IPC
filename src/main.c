@@ -12,11 +12,11 @@ Checkout* checkouts = NULL;
 void register_client() {
   Client* new_client = input_client();
 
+  // TODO - Validate checkout_id
+
   int checkout_id;
   printf("Digite o id do caixa: \n");
   scanf("%d", &checkout_id);
-
-  printf("%d\n", checkout_id);
 
   if (checkouts[checkout_id].clients == NULL) {
     printf("Caixa fechado\n");
@@ -24,6 +24,28 @@ void register_client() {
   }
 
   push(checkouts[checkout_id].clients, new_client);
+}
+
+void serve_client() {
+  // TODO - Validate checkout_id
+
+  int checkout_id;
+  printf("Digite o id do caixa: \n");
+  scanf("%d", &checkout_id);
+
+  if (!checkouts[checkout_id].open) {
+    printf("Caixa fechado\n");
+    return;
+  }
+
+  if (checkouts[checkout_id].clients->size == 0) {
+    printf("Nenhum cliente na fila\n");
+    return;
+  }
+
+  Client* served_client = pop(checkouts[checkout_id].clients);
+
+  print_client(served_client);
 }
 
 void print_checkouts() {
@@ -38,7 +60,7 @@ void print_checkouts() {
 
     if (checkouts[i].clients->size > 0) {
       printf("Clientes: ");
-      print(checkouts[i].clients);
+      print_list(checkouts[i].clients);
     }
   }
 }
@@ -58,6 +80,8 @@ int main() {
   }
 
   do {
+    printf("\n");
+
     printf("[0] - Sair\n");
     printf("[1] - Cadastrar um cliente\n");
     printf("[2] - Atender um cliente\n");
@@ -65,8 +89,12 @@ int main() {
     printf("[4] - Imprimir a lista de clientes em espera\n");
     printf("[5] - Imprimir o status dos caixas\n");
 
+    printf("\n");
+
     printf("Digite uma opção: \n");
     scanf("%d", &op);
+
+    printf("\n");
 
     switch (op) {
       case 0:
@@ -76,7 +104,7 @@ int main() {
         register_client();
         break;
       case 2:
-        printf("Atender um cliente\n");
+        serve_client();
         break;
       case 3:
         printf("Abrir ou fechar um caixa\n");

@@ -20,7 +20,8 @@ typedef struct List {
 } List;
 
 void push(List* list, Client* client);
+Client* pop(List* list);
 
-void print(List* list);
+void print_list(List* list);
 
 #endif

@@ -30,7 +30,20 @@ void push(List* list, Client* client) {
   }
 }
 
-void print(List* list) {
+Client* pop(List* list) {
+  if (list->head == NULL) {
+    return NULL;
+  }
+
+  list->size--;
+
+  ListNode* node = list->head;
+  list->head = list->head->next;
+
+  return node->client;
+}
+
+void print_list(List* list) {
   ListNode* current = list->head;
 
   while (current != NULL) {
