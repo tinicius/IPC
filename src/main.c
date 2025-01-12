@@ -12,11 +12,16 @@ Checkout* checkouts = NULL;
 void register_client() {
   Client* new_client = input_client();
 
-  // TODO - Validate checkout_id
+  if (new_client == NULL) return;
 
   int checkout_id;
   printf("Digite o id do caixa: \n");
   scanf("%d", &checkout_id);
+
+  if (checkout_id < 0 || checkout_id >= CHECKOUT_COUNT) {
+    printf("Caixa inválido\n");
+    return;
+  }
 
   if (checkouts[checkout_id].clients == NULL) {
     printf("Caixa fechado\n");
@@ -24,14 +29,19 @@ void register_client() {
   }
 
   push(checkouts[checkout_id].clients, new_client);
+
+  printf("Cliente cadastrado com sucesso!\n");
 }
 
 void serve_client() {
-  // TODO - Validate checkout_id
-
   int checkout_id;
   printf("Digite o id do caixa: \n");
   scanf("%d", &checkout_id);
+
+  if (checkout_id < 0 || checkout_id >= CHECKOUT_COUNT) {
+    printf("Caixa inválido\n");
+    return;
+  }
 
   if (!checkouts[checkout_id].open) {
     printf("Caixa fechado\n");
@@ -46,12 +56,19 @@ void serve_client() {
   Client* served_client = pop(checkouts[checkout_id].clients);
 
   print_client(served_client);
+
+  printf("Cliente atendido com sucesso!\n");
 }
 
 void open_or_close_checkout() {
   int checkout_id;
   printf("Digite o id do caixa: \n");
   scanf("%d", &checkout_id);
+
+  if (checkout_id < 0 || checkout_id >= CHECKOUT_COUNT) {
+    printf("Caixa inválido\n");
+    return;
+  }
 
   int option;
   printf("Abrir (1) ou fechar (0) o caixa? \n");
